@@ -86,8 +86,8 @@ function getLeastCommonMultiple(nums : number[]) : number {
     while (true) {
         let divisible : boolean = true
         for (let int of nums) {
-            let ahhh = largest % int
-            if (ahhh != 0) {
+            let remainder = largest % int
+            if (remainder != 0) {
                 divisible = false
                 break;
             }
@@ -104,18 +104,15 @@ function getAllCommonFactors(nums : number[]) : number[] {
     nums.sort()
     let smallest = nums[0]
     let common_factors : number[] = []
-    //return [NaN];
     while (smallest != 0) {
         let common = true
-        for (let i of nums) {// work imside
-            //let oh_no = i / smallest
-            let gahhh = i % smallest
-            if (gahhh != 0) {
+        for (let i of nums) {
+            let remain = i % smallest
+            if (remain != 0) {
                 common = false
                 break;
             }
         }
-        // varaible to track
         if (common == true) {
             common_factors.push(smallest)
         }
