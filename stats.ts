@@ -2,16 +2,17 @@ function readAllNumbers() : number[] {
     let textArea = document.querySelector("textarea") as HTMLTextAreaElement;
     let lines : string[] = textArea.value.split("\n");
     let numbers : number[] = [];
-
     //Step 4: update to handle multiple numbers on one line
 
     for (let i = 0; i < lines.length; i++){
         if (lines[i] === "")
             continue;
-        let num = Number(lines[i]);
-        if (isNaN(num))
-            continue;
-        numbers.push(num);
+        let li : string[] = lines[i].split(" ")
+        for (let l of li) {
+            if (isNaN(Number(l)))
+                continue;
+            numbers.push(Number(l))
+        }
     }
     return numbers;
 }
@@ -37,21 +38,33 @@ function getAboveBelowMean(nums : number[]) : [number, number] {
     return [aboveCount, belowCount];
 }
 
-// PART A : Basic Stats
-
 function getMedian(nums : number[]) : number {
     //Step 1
-    return NaN; // remove me!
+    if (nums.length % 2 == 1) {
+        return nums[Math.floor(nums.length / 2)]
+    }
+    let right : number = Math.floor(nums.length / 2)
+    let left : number = right - 1
+
+    return (nums[left] + nums[right] ) / 2
 }
 
 function getMinMax(nums : number[]) : [number, number] {
     //Step 2
-    return [NaN, NaN]; // remove me!
+    let min = nums[0]
+    let max = nums[nums.length-1]
+    return [min, max];
 }
 
 function getStdDev(nums : number[]) : number {
     //Step 3
-    return NaN; // remove me!
+    let average_mean = 0
+    let mean : number = getMean(nums)
+    for (let n of nums) {
+        let squared_mean : number = (mean - n) ** 2
+        average_mean += squared_mean
+    }
+    return Math.sqrt(average_mean / nums.length)
 }
 
 let basicStatsAnalyzeButton = document.querySelector("button#analyze") as HTMLButtonElement;
@@ -67,14 +80,48 @@ basicStatsAnalyzeButton.addEventListener("click", function () {
     (document.querySelector("#stdDev") as HTMLElement).textContent = `${getStdDev(numbers)}`;
 });
 
-// PART B: Advanced Integer Stats
-
 function getLeastCommonMultiple(nums : number[]) : number {
-    return NaN; // remove me!
+    nums.sort()
+    let largest = nums[nums.length - 1]
+    while (true) {
+        let divisible : boolean = true
+        for (let int of nums) {
+            let ahhh = largest % int
+            if (ahhh != 0) {
+                divisible = false
+                break;
+            }
+        }
+        if (divisible == true) {
+            break;
+        }
+        largest++;
+    }
+    return largest;
 }
 
 function getAllCommonFactors(nums : number[]) : number[] {
-    return [NaN]; // remove me!
+    nums.sort()
+    let smallest = nums[0]
+    let common_factors : number[] = []
+    //return [NaN];
+    while (smallest != 0) {
+        let common = true
+        for (let i of nums) {// work imside
+            //let oh_no = i / smallest
+            let gahhh = i % smallest
+            if (gahhh != 0) {
+                common = false
+                break;
+            }
+        }
+        // varaible to track
+        if (common == true) {
+            common_factors.push(smallest)
+        }
+        smallest--
+    }
+    return common_factors;
 }
 
 let advancedStatsAnalyzeButton = document.querySelector("button#analyze-advanced") as HTMLButtonElement;
