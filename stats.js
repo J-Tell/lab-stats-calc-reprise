@@ -2,7 +2,6 @@ function readAllNumbers() {
     var textArea = document.querySelector("textarea");
     var lines = textArea.value.split("\n");
     var numbers = [];
-    //Step 4: update to handle multiple numbers on one line
     for (var i = 0; i < lines.length; i++) {
         if (lines[i] === "")
             continue;
@@ -22,7 +21,9 @@ function getMean(nums) {
         var n = nums_1[_i];
         sum += n;
     }
-    return sum / nums.length;
+    var mean = sum / nums.length;
+    var s = mean.toFixed(2);
+    return Number(s);
 }
 function getAboveBelowMean(nums) {
     var mean = getMean(nums);
@@ -38,7 +39,6 @@ function getAboveBelowMean(nums) {
     return [aboveCount, belowCount];
 }
 function getMedian(nums) {
-    //Step 1
     if (nums.length % 2 == 1) {
         return nums[Math.floor(nums.length / 2)];
     }
@@ -47,13 +47,11 @@ function getMedian(nums) {
     return (nums[left] + nums[right]) / 2;
 }
 function getMinMax(nums) {
-    //Step 2
     var min = nums[0];
     var max = nums[nums.length - 1];
     return [min, max];
 }
 function getStdDev(nums) {
-    //Step 3
     var average_mean = 0;
     var mean = getMean(nums);
     for (var _i = 0, nums_3 = nums; _i < nums_3.length; _i++) {
@@ -61,7 +59,9 @@ function getStdDev(nums) {
         var squared_mean = Math.pow((mean - n), 2);
         average_mean += squared_mean;
     }
-    return Math.sqrt(average_mean / nums.length);
+    var a = Math.sqrt(average_mean / nums.length);
+    var ans = a.toFixed(2);
+    return Number(ans);
 }
 var basicStatsAnalyzeButton = document.querySelector("button#analyze");
 basicStatsAnalyzeButton.addEventListener("click", function () {
@@ -81,8 +81,8 @@ function getLeastCommonMultiple(nums) {
         var divisible = true;
         for (var _i = 0, nums_4 = nums; _i < nums_4.length; _i++) {
             var int = nums_4[_i];
-            var ahhh = largest % int;
-            if (ahhh != 0) {
+            var remainder = largest % int;
+            if (remainder != 0) {
                 divisible = false;
                 break;
             }
@@ -98,19 +98,16 @@ function getAllCommonFactors(nums) {
     nums.sort();
     var smallest = nums[0];
     var common_factors = [];
-    //return [NaN];
     while (smallest != 0) {
         var common = true;
-        for (var _i = 0, nums_5 = nums; _i < nums_5.length; _i++) { // work imside
+        for (var _i = 0, nums_5 = nums; _i < nums_5.length; _i++) {
             var i = nums_5[_i];
-            //let oh_no = i / smallest
-            var gahhh = i % smallest;
-            if (gahhh != 0) {
+            var remain = i % smallest;
+            if (remain != 0) {
                 common = false;
                 break;
             }
         }
-        // varaible to track
         if (common == true) {
             common_factors.push(smallest);
         }

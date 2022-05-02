@@ -2,7 +2,6 @@ function readAllNumbers() : number[] {
     let textArea = document.querySelector("textarea") as HTMLTextAreaElement;
     let lines : string[] = textArea.value.split("\n");
     let numbers : number[] = [];
-    //Step 4: update to handle multiple numbers on one line
 
     for (let i = 0; i < lines.length; i++){
         if (lines[i] === "")
@@ -22,7 +21,9 @@ function getMean( nums  : number[]) : number {
     for (const n of nums){
         sum += n;
     }
-    return sum / nums.length;
+    let mean = sum / nums.length
+    let s = mean.toFixed(2)
+    return Number(s);
 }
 
 function getAboveBelowMean(nums : number[]) : [number, number] {
@@ -39,32 +40,31 @@ function getAboveBelowMean(nums : number[]) : [number, number] {
 }
 
 function getMedian(nums : number[]) : number {
-    //Step 1
     if (nums.length % 2 == 1) {
         return nums[Math.floor(nums.length / 2)]
     }
     let right : number = Math.floor(nums.length / 2)
     let left : number = right - 1
-
     return (nums[left] + nums[right] ) / 2
+
 }
 
 function getMinMax(nums : number[]) : [number, number] {
-    //Step 2
     let min = nums[0]
     let max = nums[nums.length-1]
     return [min, max];
 }
 
 function getStdDev(nums : number[]) : number {
-    //Step 3
     let average_mean = 0
     let mean : number = getMean(nums)
     for (let n of nums) {
         let squared_mean : number = (mean - n) ** 2
         average_mean += squared_mean
     }
-    return Math.sqrt(average_mean / nums.length)
+    let a : number = Math.sqrt(average_mean / nums.length)
+    let ans = a.toFixed(2);
+    return Number(ans)
 }
 
 let basicStatsAnalyzeButton = document.querySelector("button#analyze") as HTMLButtonElement;
